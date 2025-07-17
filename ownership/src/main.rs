@@ -61,18 +61,43 @@
         //With borrowing
             //with reference 
 
-fn foo(s: &String) {
-    let mut s = String::from("Unexpected");
-    println!("Nott trying to modify this thing rn == {s}");
-}
-
-fn main(){
-    let mut s = String::from("Hello, World!!");
-    foo(&s);
-    s = String::from("Completely different thing ");
-
-    println!("this is your s: {s}");
-}
+// fn foo(s: &String) {
+//     let mut s = String::from("Unexpected");
+//     println!("Nott trying to modify this thing rn == {s}");
+// }
+//
+// fn main(){
+//     let mut s = String::from("Hello, World!!");
+//     foo(&s);
+//     s = String::from("Completely different thing ");
+//
+//     println!("this is your s: {s}");
+// }
 
 // 1. Yes, because there is no transfer of ownership just references
 // 2. No, the condition to allow variable to change data for heap based data is to have it mutable and then to have its mutable reference rather than the immutable one.
+//
+            
+
+        //With borrowing
+            //with mut
+                //with reference 
+
+
+
+fn foo(s: &mut String) -> &String{
+    println!("Hey this is raw s from foo function, s: {s}");
+    s = String::from("Bye, World!!!");
+    s
+}
+fn main(){
+    let mut x = String::from("Hello, World!!");
+    let foo_returns = foo(&mut x);
+
+    println!("This is x: {}", x);
+    println!("This is foo_returns: {}", foo_returns);
+}
+
+//something needs to be understood about this snippet, as i can't be able to do ln 97 x printing,
+//it is suggesting me to not do an "immutable borrow" because i am already doing "mutable borrow"
+//at line 95
