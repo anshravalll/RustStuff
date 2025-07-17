@@ -16,28 +16,30 @@
 
 
 //Heap based 
-    //With ownership
     //With mut
-fn foo(mut s: String) -> String{
-    println!("Bruh, thisi s your thing? {s}");
-    s.push_str("Bye, world!!");
-    s
-} //This function: Accesses, and returns the variable but doesn't modify it. 
-
-fn main(){
-    let mut s = String::from("Hello, World!!"); //Heap based allocation
-    let foo_returns = foo(mut s); //There is no reference (borrowing), just pure ownership transfer
-    println!("{s}"); //s was moved so its not accessible
-    println!("Same s that foo returns is: {foo_returns}");
-}
+        //With ownership
+// fn foo(mut s: String) -> String{
+//     println!("Bruh, thisi s your thing? {s}");
+//     s.push_str("Bye, world!!");
+//     s
+// } //This function: Accesses, and returns the variable but doesn't modify it. 
+//
+// fn main(){
+//     let mut s = String::from("Hello, World!!"); //Heap based allocation
+//     let foo_returns = foo(mut s); //There is no reference (borrowing), just pure ownership transfer
+//     println!("{s}"); //s was moved so its not accessible
+//     println!("Same s that foo returns is: {foo_returns}");
+// }
 // 1. No, because the variable is MOVED and ownership of the pointer has been changed.
 // 2. No, because we are not passing the variable as a mutable reference
 // 3. Well, no, because the answer of 1. is No
 
-    
+// MISPLACED
     //With ownership
     //Immutable
-// fn foo(s: &String) -> String{
+// fn foo(s: &String) -> String{ //& doesn't work here, as it is purely for reference (borrowing)
+// purposes.
+//
 //     println!("Bruh, this i s your thing {s}");
 //     s.push_str("Bye, World!!");
 //     s
@@ -46,6 +48,31 @@ fn main(){
 // fn main(){
 //     let s = String::from("Hello, World!!"); //Heap based allocation
 //     foo_returns = foo(s); //Pure ownership transfer without any reference
-//     println!("{s}");
+//     println!("{s}"); //
 //     println!("Same s that foo returns is: {foo_returns}");
 // }
+
+
+
+
+
+
+
+        //With borrowing
+            //with reference 
+
+fn foo(s: &String) {
+    let mut s = String::from("Unexpected");
+    println!("Nott trying to modify this thing rn == {s}");
+}
+
+fn main(){
+    let mut s = String::from("Hello, World!!");
+    foo(&s);
+    s = String::from("Completely different thing ");
+
+    println!("this is your s: {s}");
+}
+
+// 1. Yes, because there is no transfer of ownership just references
+// 2. No, the condition to allow variable to change data for heap based data is to have it mutable and then to have its mutable reference rather than the immutable one.
