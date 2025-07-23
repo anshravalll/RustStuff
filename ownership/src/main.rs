@@ -63,22 +63,36 @@
 
 // 1. Yes, because there is no transfer of ownership just references
 // 2. No, the condition to allow variable to change data for heap based data is to have it mutable and then to have its mutable reference rather than the immutable one.
-// (maybe above all answers are sufficient)
+// (maybe above all answers are sufficient) But above code is compilable.
 
 //With borrowing
 //with mut
 //with reference
 
 fn foo(s: &mut String) -> &String {
-    println!("Hey this is raw s from foo function, s: {s}");
-    s = String::from("Bye, World!!!");
+    println!("Modifying string inside foo...");
+    // Dereference `s` to change the value it points to (which is `x` from main).
+    *s = String::from("Bye, World!!!");
+    // Return the reference. Now it's an immutable reference.
     s
 }
+
 fn main() {
+    // 1. `x` is created and owns the "Hello, World!!" data.
     let mut x = String::from("Hello, World!!");
+
+    // 2. We call `foo`, passing a MUTABLE borrow of `x`.
+    //    - Inside `foo`, `x`'s value is changed to "Bye, World!!!".
+    //    - `foo` returns an IMMUTABLE borrow to `x`.
+    //    - `foo_returns` now holds this immutable borrow.
+    //    - CRITICAL: Because `foo_returns` exists, `x` is considered immutably borrowed
+    //      until `foo_returns` goes out of scope.
     let foo_returns = foo(&mut x);
 
+    // 3. We try to print `x`.
     println!("This is x: {}", x);
+
+    // 4. We try to print `foo_returns`.
     println!("This is foo_returns: {}", foo_returns);
 }
 
