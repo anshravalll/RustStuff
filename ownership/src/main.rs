@@ -58,7 +58,7 @@
 // regardless of this variables mutability (mutable or not), i can atleast reference it which means borrow it, be it mutable referencing or not.
 // The only relevant scenario to explore is to make the initial variable mutable, so that we can get the idea of both mutable reference and immutable reference.
 //
-// n.
+// 3.
 //Heap based
 //With borrowing
 //Immutable reference with the capabilities of mutation from initial variable initialization.
@@ -76,17 +76,20 @@
 //     println!("this is your s: {x}"); //We are able to access the reader, because the reader is valid, why? because the owner is valid, as long as the owner s is valid, reader will be.
 // }
 // 1. Yes.
-// 2. Yes, because we are just dealing with the reader, even if we are dealing with direct
+// 2. Yes, because we are just dealing with the reader.
 // 3. No, the condition to allow variable to change data for heap based data is to have it mutable and then to have its mutable reference rather than the immutable one.
-// (maybe above all answers are sufficient) But above code is compilable.
+// 4. No, just because of the 3rd reason. We don't have mutable reference.
 
+//4.
+//Heap based
 //With borrowing
-//with mut
 //with reference
+//With mutable capabilities (from first variable initialization) and with mutable referencing.
 
 // fn foo(s: &mut String) -> &String {
 //     println!("Modifying string inside foo...");
 //     // Dereference `s` to change the value it points to (which is `x` from main).
+//     // We could've also used s.(method to update the string, if we wanted 'no dereferencing')
 //     *s = String::from("Bye, World!!!");
 //     // Return the reference. Now it's an immutable reference.
 //     s
@@ -104,13 +107,30 @@
 //     //      until `foo_returns` goes out of scope.
 //     let foo_returns = foo(&mut x);
 
-//     // 3. We try to print `x`.
-//     println!("This is x: {}", x);
-
-//     // 4. We try to print `foo_returns`.
+//     // 3. We try to print `foo_returns`.
 //     println!("This is foo_returns: {}", foo_returns);
-// }
 
-//something needs to be understood about this snippet, as i can't be able to do ln 97 x printing,
-//it is suggesting me to not do an "immutable borrow" because i am already doing "mutable borrow"
-//at line 95
+//     // 4. We try to print `x`.
+//     println!("This is x: {}", x);
+// }
+//
+// 1. Yes
+// 2. Yes, because of mut referencing
+// 3. Yes, because of mut referencing
+// 4. yes, I am trying to access the value by println! macro. This macro creates temporary immutable reference to the thing getting printed so make sure there is no other mutable reference alive.
+
+fn main() {
+    {
+        // let p = x;
+        let p: &i32;
+        let d;
+        {
+            let mut x = 5;
+            d = x;
+        }
+    }
+    //There must be borrows here WHY? we wanna check the rule "If owner dies, borrows aren't usable" rule, in action.
+    //How do i borrow? which variable from what?
+    // println!("This is the reference to x, which is y =  and this is x ofcourse {x}");
+    // Now we wanna laern about ownership transfer, or is it just copying of the data.
+}
