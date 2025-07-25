@@ -119,18 +119,21 @@
 // 3. Yes, because of mut referencing
 // 4. yes, I am trying to access the value by println! macro. This macro creates temporary immutable reference to the thing getting printed so make sure there is no other mutable reference alive.
 
+//Main memory based
+
+//A try to understand the ownership and borrowing with {} and with non heap variables
 fn main() {
     {
         // let p = x;
         let p: &i32;
         let d;
         {
-            let mut x = 5;
-            d = x;
+            let mut x = 5; //Defining a variable
+            d = x; //Copying that variable (No ownership transfer), now both x and d are the owners.
         }
     }
     //There must be borrows here WHY? we wanna check the rule "If owner dies, borrows aren't usable" rule, in action.
     //How do i borrow? which variable from what?
-    // println!("This is the reference to x, which is y =  and this is x ofcourse {x}");
+    // println!("This is the reference to x, which is y =  and this is x ofcourse {x}"); //As owner dies already, there is no way to access x (owner) even if the borrow is alive or in the scope.
     // Now we wanna laern about ownership transfer, or is it just copying of the data.
-}
+} //This is a compilable code
