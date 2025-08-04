@@ -1,11 +1,26 @@
 use std::io;
 
-fn first_word(str: &String) -> String {}
+fn first_word(_str: &String) -> Vec<&str> {
+    let arr: Vec<&str> = _str.split(" ").collect();
+    arr
+}
 
 fn main() {
     let mut buff = String::new();
     io::stdin()
         .read_line(&mut buff)
         .expect("Error parsing the line");
-    println!("{first_word(&buff)}");
+    println!("{buff}");
+    let arr = first_word(&buff);
+    let mut parity = true;
+    for element in arr {
+        if element != "" {
+            println!("{:?}", element);
+            parity = false;
+            break;
+        }
+    }
+    if parity {
+        println!("Duhhh");
+    }
 }
