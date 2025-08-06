@@ -21,6 +21,6 @@ fn main() {
         }
     }
     if parity {
-        println!("Duhhh");
+        println!("No word");
     }
 }
