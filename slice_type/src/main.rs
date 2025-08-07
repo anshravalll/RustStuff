@@ -17,7 +17,7 @@ fn main() {
         if element != "" {
             println!("{:?}", element);
             parity = false;
-            break;
+            break; //We can't unfortuantely break out of this with a break return statement because its not loop statement
         }
     }
     if parity {
