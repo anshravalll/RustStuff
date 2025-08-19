@@ -19,7 +19,7 @@ fn main() {
         if element != "" {
             println!("{:?}", element);
             parity = false;
-            break; //We can't unfortuantely break out of this with a break return statement because its not loop statement
+            break; //We can't unfortuantely break out of this with a break return statement because its not loop statement (rust learnings)
         }
     }
     if parity {
