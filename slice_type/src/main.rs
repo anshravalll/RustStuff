@@ -52,3 +52,8 @@ fn first_word(s: &String) -> &str {
 
     &s[..]
 }
+
+fn main() {
+    char s = "example string";
+    first_word(s);
+}
