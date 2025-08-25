@@ -27,7 +27,7 @@
 //     }
 // }
 
-//Based on rust book
+//Based on rust book (Primitive solution)
 // fn first_word(s: &String) -> usize {
 //     let bytes = s.as_bytes();
 
